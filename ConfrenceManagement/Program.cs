@@ -5,9 +5,7 @@ using ConfrenceManagement.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.IO;
 namespace ConfrenceManagement
 {
     class Program
@@ -15,8 +13,25 @@ namespace ConfrenceManagement
         static void Main(string[] args)
         {
             List<Event> events = new List<Event>();
-            FileInputReader reader = new FileInputReader("input.txt");
-            events = reader.ReadInput();
+            InputProcessor inputProcessor = new InputProcessor();
+            bool validFile = false;
+            string inputFileLocation = "";
+
+            while (!validFile)
+            {
+                Console.Write("Enter input file path: ");
+                inputFileLocation = Console.ReadLine().Trim();
+
+                if (inputFileLocation != "" && File.Exists(inputFileLocation))
+                {
+                    validFile = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid file location, please try again");
+                }
+            }
+            events = inputProcessor.ParseLines(File.ReadAllLines(inputFileLocation).ToList());
 
             ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
             Confrence result = scheduler.ScheduleConfrence();

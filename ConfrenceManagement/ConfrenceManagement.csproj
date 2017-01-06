@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\InputProcessor.cs" />
     <Compile Include="Scheduler\ConfrenceScheduler.cs" />
-    <Compile Include="Input\FileInputReader.cs" />
     <Compile Include="Model\Confrence.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Session.cs" />
