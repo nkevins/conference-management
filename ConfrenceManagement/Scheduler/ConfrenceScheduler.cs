@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfrenceManagement
+namespace ConfrenceManagement.Scheduler
 {
     public class ConfrenceScheduler
     {

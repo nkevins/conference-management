@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace ConfrenceManagement
+namespace ConfrenceManagement.Input
 {
     public class FileInputReader
     {

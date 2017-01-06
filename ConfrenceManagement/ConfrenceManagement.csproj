@@ -42,15 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfrenceScheduler.cs" />
-    <Compile Include="FileInputReader.cs" />
+    <Compile Include="Scheduler\ConfrenceScheduler.cs" />
+    <Compile Include="Input\FileInputReader.cs" />
     <Compile Include="Model\Confrence.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Session.cs" />
     <Compile Include="Model\Track.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeHelper.cs" />
+    <Compile Include="Helper\TimeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

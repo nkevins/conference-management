@@ -1,4 +1,7 @@
-﻿using ConfrenceManagement.Model;
+﻿using ConfrenceManagement.Helper;
+using ConfrenceManagement.Input;
+using ConfrenceManagement.Model;
+using ConfrenceManagement.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +37,7 @@ namespace ConfrenceManagement
                 }
                 trackNo++;
 
-                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine("");
             }
 
             Console.ReadLine();
