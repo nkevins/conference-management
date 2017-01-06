@@ -10,6 +10,11 @@ namespace ConfrenceManagement.Helper
     {
         public static string FormatMinutesToTime(int minutes)
         {
+            if (minutes < 0 || minutes > 1439)
+            {
+                throw new ApplicationException("Invalid input value");
+            }
+
             int hourPart = minutes / 60;
             if (hourPart > 12)
             {
