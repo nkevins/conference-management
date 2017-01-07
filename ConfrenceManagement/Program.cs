@@ -24,16 +24,32 @@ namespace ConfrenceManagement
                 Console.Write("Enter input file path: ");
                 inputFileLocation = Console.ReadLine().Trim();
 
-                if (inputFileLocation != "" && File.Exists(inputFileLocation))
-                {
-                    validFile = true;
-                }
-                else
+                if (inputFileLocation == "" || !File.Exists(inputFileLocation))
                 {
                     Console.WriteLine("Invalid file location, please try again");
+                    continue;
+                }
+
+                List<string> fileContents = File.ReadAllLines(inputFileLocation).ToList();
+
+                if (fileContents.Count == 0)
+                {
+                    Console.WriteLine("File content is empty");
+                    continue;
+                }
+
+                try
+                {
+                    events = inputProcessor.ParseLines(File.ReadAllLines(inputFileLocation).ToList());
+                    validFile = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    continue;
                 }
             }
-            events = inputProcessor.ParseLines(File.ReadAllLines(inputFileLocation).ToList());
+            
 
             // Proccess event assignment
             ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
