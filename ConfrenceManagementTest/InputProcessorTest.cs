@@ -30,7 +30,7 @@ namespace ConfrenceManagementTest
         [TestMethod]
         public void TestEmptyInput()
         {
-            output = inputProcessor.ParseLines(input);
+            output = inputProcessor.ParseInput(input);
             Assert.AreEqual(0, output.Count);
         }
 
@@ -38,7 +38,7 @@ namespace ConfrenceManagementTest
         public void TestValidInput()
         {
             input.Add("Overdoing it in Python 45min");
-            output = inputProcessor.ParseLines(input);
+            output = inputProcessor.ParseInput(input);
             Assert.AreEqual(1, output.Count);
 
             Event result = output[0];
@@ -48,7 +48,7 @@ namespace ConfrenceManagementTest
 
             Reset();
             input.Add("Rails for Python Developers lightning");
-            output = inputProcessor.ParseLines(input);
+            output = inputProcessor.ParseInput(input);
             Assert.AreEqual(1, output.Count);
 
             result = output[0];
@@ -58,7 +58,7 @@ namespace ConfrenceManagementTest
 
             Reset();
             input.Add("Lightning Rails for Python lightning fast Developers lightning");
-            output = inputProcessor.ParseLines(input);
+            output = inputProcessor.ParseInput(input);
             Assert.AreEqual(1, output.Count);
 
             result = output[0];
@@ -73,7 +73,7 @@ namespace ConfrenceManagementTest
             input.Add("   ");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -83,7 +83,7 @@ namespace ConfrenceManagementTest
             input.Add("25");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -93,7 +93,7 @@ namespace ConfrenceManagementTest
             input.Add("25min");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -103,7 +103,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -113,7 +113,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development in 25");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -123,7 +123,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development in 25 min");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -133,7 +133,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development in lightning fast");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -143,7 +143,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development inlightning");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception) { }
@@ -156,7 +156,7 @@ namespace ConfrenceManagementTest
             input.Add("Accounting-Driven Development in 3min");
             try
             {
-                output = inputProcessor.ParseLines(input);
+                output = inputProcessor.ParseInput(input);
                 Assert.Fail();
             }
             catch (Exception ex)

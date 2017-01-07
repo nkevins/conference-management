@@ -16,10 +16,10 @@ namespace ConfrenceManagement
 
             // Read input file
             InputProcessor inputProcessor = new InputProcessor();
-            bool validFile = false;
+            bool isFileValid = false;
             string inputFileLocation = "";
 
-            while (!validFile)
+            while (!isFileValid)
             {
                 Console.Write("Enter input file path: ");
                 inputFileLocation = Console.ReadLine().Trim();
@@ -40,8 +40,8 @@ namespace ConfrenceManagement
 
                 try
                 {
-                    events = inputProcessor.ParseLines(File.ReadAllLines(inputFileLocation).ToList());
-                    validFile = true;
+                    events = inputProcessor.ParseInput(File.ReadAllLines(inputFileLocation).ToList());
+                    isFileValid = true;
                 }
                 catch (Exception ex)
                 {
@@ -53,16 +53,16 @@ namespace ConfrenceManagement
 
             // Proccess event assignment
             ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
-            Confrence result = scheduler.ScheduleConfrence();
+            Confrence confrence = scheduler.ScheduleConfrence();
 
             // Print result
             int trackNo = 1;
-            foreach (Track t in result.tracks)
+            foreach (Track track in confrence.tracks)
             {
                 Console.WriteLine("Track " + trackNo + ":");
-                foreach (Session s in t.sessions.OrderBy(x => x.sessionType))
+                foreach (Session session in track.sessions.OrderBy(x => x.sessionType))
                 {
-                    foreach (Event e in s.events)
+                    foreach (Event e in session.events)
                     {
                         Console.WriteLine(e.ToString());
                     }

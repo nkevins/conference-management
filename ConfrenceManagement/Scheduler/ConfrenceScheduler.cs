@@ -63,7 +63,7 @@ namespace ConfrenceManagement.Scheduler
             {
                 Session s = track.sessions[i];
 
-                if (s.availableMinutes >= e.duration)
+                if (s.availableSlotMinutes >= e.duration)
                 {
                     s.AddTalkEvent(e);
                     canAssignIntoExistingSession = true;

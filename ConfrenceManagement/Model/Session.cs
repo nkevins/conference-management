@@ -18,7 +18,7 @@ namespace ConfrenceManagement.Model
         public int startTime { get; }
         public int endTime { get; }
         public SessionType sessionType { get; }
-        public int availableMinutes { private set; get; }
+        public int availableSlotMinutes { private set; get; }
         
         public Session(SessionType sessionType)
         {
@@ -43,7 +43,7 @@ namespace ConfrenceManagement.Model
                 events.Add(networking);
             }
 
-            availableMinutes = endTime - startTime;
+            availableSlotMinutes = endTime - startTime;
         }
 
         public void AddTalkEvent(Event e)
@@ -53,21 +53,21 @@ namespace ConfrenceManagement.Model
                 throw new ApplicationException("Only Event Type Talk is allowed to be added");
             }
 
-            if (e.duration > availableMinutes)
+            if (e.duration > availableSlotMinutes)
             {
                 throw new ApplicationException("Not enough duration in current session");
             }
 
-            int eventStartTime = endTime - availableMinutes;
+            int eventStartTime = endTime - availableSlotMinutes;
             Event eventToBeInserted = new Event(e.title, e.duration, Event.EventType.Talk, eventStartTime);
             events.Insert(events.Count - 1, eventToBeInserted);
-            availableMinutes -= e.duration;
+            availableSlotMinutes -= e.duration;
 
             // Shift Networking time for afternoon session if talk session end after 4 PM
-            if (sessionType == SessionType.Afternoon && availableMinutes < 60)
+            if (sessionType == SessionType.Afternoon && availableSlotMinutes < 60)
             {
                 Event networkingEvent = events.Find(x => x.eventType == Event.EventType.Networking);
-                Event newNetworkingEvent = new Event(networkingEvent.title, networkingEvent.duration, Event.EventType.Networking, endTime - availableMinutes);
+                Event newNetworkingEvent = new Event(networkingEvent.title, networkingEvent.duration, Event.EventType.Networking, endTime - availableSlotMinutes);
                 events.Remove(networkingEvent);
                 events.Add(newNetworkingEvent);
             }

@@ -10,7 +10,7 @@ namespace ConfrenceManagement.Input
 {
     public class InputProcessor
     {
-        public List<Event> ParseLines(List<string> input)
+        public List<Event> ParseInput(List<string> input)
         {
             List<Event> events = new List<Event>();
 
