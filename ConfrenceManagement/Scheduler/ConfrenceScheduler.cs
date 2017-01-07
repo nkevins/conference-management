@@ -65,7 +65,7 @@ namespace ConfrenceManagement.Scheduler
 
                 if (s.availableMinutes >= e.duration)
                 {
-                    s.AddEvent(e);
+                    s.AddTalkEvent(e);
                     canAssignIntoExistingSession = true;
                     break;
                 }

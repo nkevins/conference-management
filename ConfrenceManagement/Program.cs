@@ -13,6 +13,8 @@ namespace ConfrenceManagement
         static void Main(string[] args)
         {
             List<Event> events = new List<Event>();
+
+            // Read input file
             InputProcessor inputProcessor = new InputProcessor();
             bool validFile = false;
             string inputFileLocation = "";
@@ -33,6 +35,7 @@ namespace ConfrenceManagement
             }
             events = inputProcessor.ParseLines(File.ReadAllLines(inputFileLocation).ToList());
 
+            // Proccess event assignment
             ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
             Confrence result = scheduler.ScheduleConfrence();
 

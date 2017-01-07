@@ -44,6 +44,7 @@ namespace ConfrenceManagementTest
             Event result = output[0];
             Assert.AreEqual("Overdoing it in Python", result.title);
             Assert.AreEqual(45, result.duration);
+            Assert.AreEqual(Event.EventType.Talk, result.eventType);
 
             Reset();
             input.Add("Rails for Python Developers lightning");
@@ -53,6 +54,7 @@ namespace ConfrenceManagementTest
             result = output[0];
             Assert.AreEqual("Rails for Python Developers", result.title);
             Assert.AreEqual(5, result.duration);
+            Assert.AreEqual(Event.EventType.Talk, result.eventType);
 
             Reset();
             input.Add("Lightning Rails for Python lightning fast Developers lightning");
@@ -62,6 +64,7 @@ namespace ConfrenceManagementTest
             result = output[0];
             Assert.AreEqual("Lightning Rails for Python lightning fast Developers", result.title);
             Assert.AreEqual(5, result.duration);
+            Assert.AreEqual(Event.EventType.Talk, result.eventType);
         }
 
         [TestMethod]

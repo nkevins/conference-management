@@ -16,10 +16,10 @@ namespace ConfrenceManagement.Model
 
         public List<Event> events { get; }
         public int startTime { get; }
-        private int endTime;
+        public int endTime { get; }
         public SessionType sessionType { get; }
         public int availableMinutes { private set; get; }
-
+        
         public Session(SessionType sessionType)
         {
             events = new List<Event>();
@@ -30,7 +30,7 @@ namespace ConfrenceManagement.Model
                 endTime = 720;
                 this.sessionType = SessionType.Morning;
 
-                Event lunch = new Event("Lunch", 60);
+                Event lunch = new Event("Lunch", 0, Event.EventType.Lunch);
                 events.Add(lunch);
             }
             else
@@ -39,17 +39,34 @@ namespace ConfrenceManagement.Model
                 endTime = 1020;
                 this.sessionType = SessionType.Afternoon;
 
-                Event networking = new Event("Networking Event", 60);
+                Event networking = new Event("Networking Event", 0, Event.EventType.Networking);
                 events.Add(networking);
             }
 
             availableMinutes = endTime - startTime;
         }
 
-        public void AddEvent(Event e)
+        public void AddTalkEvent(Event e)
         {
+            if (e.eventType != Event.EventType.Talk)
+            {
+                throw new ApplicationException("Only Event Type Talk is allowed to be added");
+            }
+
+            if (e.duration > availableMinutes)
+            {
+                throw new ApplicationException("Not enough duration in current session");
+            }
+
             events.Insert(events.Count - 1, e);
+            e.startTime = startTime - availableMinutes;
             availableMinutes -= e.duration;
+
+            // Shift Networking time for afternoon session if talk session end after 4 PM
+            if (sessionType == SessionType.Afternoon && availableMinutes < 60)
+            {
+                events.Find(x => x.eventType == Event.EventType.Networking).startTime = endTime - availableMinutes;
+            }
         }
     }
 }

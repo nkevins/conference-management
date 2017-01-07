@@ -8,13 +8,32 @@ namespace ConfrenceManagement.Model
 {
     public class Event
     {
-        public string title { get; set; }
-        public int duration { get; set; }
+        public enum EventType
+        {
+            Talk = 1,
+            Lunch = 2,
+            Networking = 3
+        }
 
-        public Event(string title, int duration)
+        public string title { get; set; }
+        public int duration { get; }
+        public int startTime { get; set; }
+        public EventType eventType { get; }
+
+        public Event(string title, int duration, EventType eventType = EventType.Talk)
         {
             this.title = title;
             this.duration = duration;
+            this.eventType = eventType;
+            
+            if (eventType == EventType.Lunch)
+            {
+                startTime = 720;
+            }
+            else if (eventType == EventType.Networking)
+            {
+                startTime = 960;
+            }
         }
     }
 }
