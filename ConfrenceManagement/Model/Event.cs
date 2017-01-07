@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConfrenceManagement.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,11 @@ namespace ConfrenceManagement.Model
             {
                 this.startTime = startTime;
             }
+        }
+
+        public override string ToString()
+        {
+            return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " - " + duration;
         }
     }
 }

@@ -46,11 +46,9 @@ namespace ConfrenceManagement
                 Console.WriteLine("Track " + trackNo + ":");
                 foreach (Session s in t.sessions.OrderBy(x => x.sessionType))
                 {
-                    int cumulativeMinutes = s.startTime;
                     foreach (Event e in s.events)
                     {
-                        Console.WriteLine(TimeHelper.FormatMinutesToTime(cumulativeMinutes) + " " + e.title + " - " + e.duration);
-                        cumulativeMinutes += e.duration;
+                        Console.WriteLine(e.ToString());
                     }
                 }
                 trackNo++;

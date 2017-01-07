@@ -58,7 +58,7 @@ namespace ConfrenceManagement.Model
                 throw new ApplicationException("Not enough duration in current session");
             }
 
-            int eventStartTime = startTime - availableMinutes;
+            int eventStartTime = endTime - availableMinutes;
             Event eventToBeInserted = new Event(e.title, e.duration, Event.EventType.Talk, eventStartTime);
             events.Insert(events.Count - 1, eventToBeInserted);
             availableMinutes -= e.duration;

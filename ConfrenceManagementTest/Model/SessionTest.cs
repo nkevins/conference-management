@@ -78,6 +78,7 @@ namespace ConfrenceManagementTest.Model
 
             Assert.AreEqual(2, morningSession.events.Count);
             Assert.AreEqual(0, morningSession.availableMinutes);
+            Assert.AreEqual(540, morningSession.events[0].startTime);
 
 
             morningSession = new Session(Session.SessionType.Morning);
@@ -94,6 +95,19 @@ namespace ConfrenceManagementTest.Model
 
             Assert.AreEqual(2, morningSession.events.Count);
             Assert.AreEqual(120, morningSession.availableMinutes);
+            Assert.AreEqual(540, morningSession.events[0].startTime);
+
+            Event e2 = new Event(".NET", 30);
+
+            try
+            {
+                morningSession.AddTalkEvent(e2);
+            }
+            catch (Exception) { Assert.Fail(); }
+
+            Assert.AreEqual(3, morningSession.events.Count);
+            Assert.AreEqual(90, morningSession.availableMinutes);
+            Assert.AreEqual(600, morningSession.events[1].startTime);
         }
 
         [TestMethod]
@@ -113,6 +127,7 @@ namespace ConfrenceManagementTest.Model
 
             Assert.AreEqual(2, afternoonSession.events.Count);
             Assert.AreEqual(0, afternoonSession.availableMinutes);
+            Assert.AreEqual(780, afternoonSession.startTime);
 
 
             afternoonSession = new Session(Session.SessionType.Afternoon);
@@ -129,6 +144,19 @@ namespace ConfrenceManagementTest.Model
 
             Assert.AreEqual(2, afternoonSession.events.Count);
             Assert.AreEqual(180, afternoonSession.availableMinutes);
+            Assert.AreEqual(780, afternoonSession.startTime);
+
+            Event e2 = new Event(".NET", 30);
+
+            try
+            {
+                afternoonSession.AddTalkEvent(e2);
+            }
+            catch (Exception) { Assert.Fail(); }
+
+            Assert.AreEqual(3, afternoonSession.events.Count);
+            Assert.AreEqual(150, afternoonSession.availableMinutes);
+            Assert.AreEqual(840, afternoonSession.events[1].startTime);
         }
 
         [TestMethod]

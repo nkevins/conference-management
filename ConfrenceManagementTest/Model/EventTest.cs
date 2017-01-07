@@ -25,5 +25,15 @@ namespace ConfrenceManagementTest.Model
                 Assert.Fail();
             } catch (Exception) { }
         }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            Session morningSession = new Session(Session.SessionType.Morning);
+            Event e = new Event("Python", 30);
+            morningSession.AddTalkEvent(e);
+
+            //Assert.AreEqual("09:00 AM Python - 30", morningSession.events[0].ToString());
+        }
     }
 }
