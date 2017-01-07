@@ -135,7 +135,7 @@ namespace ConfrenceManagementTest.Model
         public void TestAddOverDurationEvent()
         {
             Session morningSession = new Session(Session.SessionType.Morning);
-            Event e = new Event("Java", 181);
+            Event e = new Event("Java", 185);
 
             try
             {
@@ -146,7 +146,7 @@ namespace ConfrenceManagementTest.Model
 
 
             Session afternoonSession = new Session(Session.SessionType.Afternoon);
-            e = new Event("Java", 241);
+            e = new Event("Java", 245);
 
             try
             {

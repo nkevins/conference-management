@@ -58,14 +58,18 @@ namespace ConfrenceManagement.Model
                 throw new ApplicationException("Not enough duration in current session");
             }
 
-            events.Insert(events.Count - 1, e);
-            e.startTime = startTime - availableMinutes;
+            int eventStartTime = startTime - availableMinutes;
+            Event eventToBeInserted = new Event(e.title, e.duration, Event.EventType.Talk, eventStartTime);
+            events.Insert(events.Count - 1, eventToBeInserted);
             availableMinutes -= e.duration;
 
             // Shift Networking time for afternoon session if talk session end after 4 PM
             if (sessionType == SessionType.Afternoon && availableMinutes < 60)
             {
-                events.Find(x => x.eventType == Event.EventType.Networking).startTime = endTime - availableMinutes;
+                Event networkingEvent = events.Find(x => x.eventType == Event.EventType.Networking);
+                Event newNetworkingEvent = new Event(networkingEvent.title, networkingEvent.duration, Event.EventType.Networking, endTime - availableMinutes);
+                events.Remove(networkingEvent);
+                events.Add(newNetworkingEvent);
             }
         }
     }

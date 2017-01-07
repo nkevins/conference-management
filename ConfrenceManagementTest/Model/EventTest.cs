@@ -15,5 +15,15 @@ namespace ConfrenceManagementTest.Model
             Assert.AreEqual(60, e.duration);
             Assert.AreEqual(Event.EventType.Talk, e.eventType);
         }
+
+        [TestMethod]
+        public void TestEventDuration()
+        {
+            try
+            {
+                Event e = new Event("Python", 42);
+                Assert.Fail();
+            } catch (Exception) { }
+        }
     }
 }

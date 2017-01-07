@@ -40,12 +40,15 @@ namespace ConfrenceManagement.Input
                     title = m.Groups[1].Value.Trim();
                     duration = int.Parse(m.Groups[2].Value.Trim());
 
-                    if (duration%5 != 0)
+                    try
                     {
-                        throw new ApplicationException("Event duration must be in 5 minutes interval: " + line);
+                        events.Add(new Event(title, duration));
                     }
-
-                    events.Add(new Event(title, duration));
+                    catch (Exception ex)
+                    {
+                        throw new ApplicationException(ex.Message + ": " + line, ex);
+                    }
+                    
                 }                
             }
 

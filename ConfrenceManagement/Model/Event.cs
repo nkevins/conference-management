@@ -17,22 +17,32 @@ namespace ConfrenceManagement.Model
 
         public string title { get; set; }
         public int duration { get; }
-        public int startTime { get; set; }
+        public int startTime { get; }
         public EventType eventType { get; }
 
-        public Event(string title, int duration, EventType eventType = EventType.Talk)
+        public Event(string title, int duration, EventType eventType = EventType.Talk, int startTime = 0)
         {
             this.title = title;
+
+            if (duration % 5 != 0)
+            {
+                throw new Exception("Event duration must be in 5 minutes interval");
+            }
+
             this.duration = duration;
             this.eventType = eventType;
             
             if (eventType == EventType.Lunch)
             {
-                startTime = 720;
+                this.startTime = 720;
             }
-            else if (eventType == EventType.Networking)
+            else if (eventType == EventType.Networking && startTime == 0)
             {
-                startTime = 960;
+                this.startTime = 960;
+            }
+            else
+            {
+                this.startTime = startTime;
             }
         }
     }
