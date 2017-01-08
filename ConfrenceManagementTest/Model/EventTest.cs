@@ -33,7 +33,7 @@ namespace ConfrenceManagementTest.Model
             Event e = new Event("Python", 30);
             morningSession.AddTalkEvent(e);
 
-            Assert.AreEqual("09:00 AM Python - 30", morningSession.events[0].ToString());
+            Assert.AreEqual("09:00 AM Python 30min", morningSession.events[0].ToString());
         }
     }
 }

@@ -49,8 +49,14 @@ namespace ConfrenceManagement.Scheduler
             if (!canAssignIntoExistingTracks)
             {
                 Track t = new Track();
-                AddEventToTrack(e, ref t);
-                confrence.tracks.Add(t);
+                if (!AddEventToTrack(e, ref t))
+                {
+                    Console.WriteLine("Unable to assign slot for following session: " + e.title + " " + e.duration + "min");
+                }
+                else
+                {
+                    confrence.tracks.Add(t);
+                }
             }
         }
 

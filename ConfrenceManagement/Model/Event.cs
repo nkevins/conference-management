@@ -49,7 +49,7 @@ namespace ConfrenceManagement.Model
 
         public override string ToString()
         {
-            return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " - " + duration;
+            return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " " + duration + "min";
         }
     }
 }
