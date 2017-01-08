@@ -1,12 +1,12 @@
-﻿using ConfrenceManagementLogic.Helper;
-using ConfrenceManagementLogic.Input;
+﻿using ConfrenceManagement.Input;
 using ConfrenceManagementLogic.Model;
 using ConfrenceManagementLogic.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-namespace ConfrenceManagementLogic
+
+namespace ConfrenceManagement
 {
     class Program
     {

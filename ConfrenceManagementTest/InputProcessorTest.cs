@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ConfrenceManagementLogic.Input;
+using ConfrenceManagement.Input;
 using System.Collections.Generic;
 using ConfrenceManagementLogic.Model;
 
