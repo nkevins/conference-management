@@ -1,11 +1,11 @@
-﻿using ConfrenceManagement.Model;
+﻿using ConfrenceManagementLogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfrenceManagement.Scheduler
+namespace ConfrenceManagementLogic.Scheduler
 {
     public class ConfrenceScheduler
     {

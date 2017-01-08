@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ConfrenceManagement.Input;
+using ConfrenceManagementLogic.Input;
 using System.Collections.Generic;
-using ConfrenceManagement.Model;
+using ConfrenceManagementLogic.Model;
 
 namespace ConfrenceManagementTest
 {

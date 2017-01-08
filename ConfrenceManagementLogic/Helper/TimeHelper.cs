@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfrenceManagement.Helper
+namespace ConfrenceManagementLogic.Helper
 {
     public class TimeHelper
     {

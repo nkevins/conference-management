@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfrenceManagement", "ConfrenceManagement\ConfrenceManagement.csproj", "{EA2E09B5-839E-44BD-B186-2C182A371A92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfrenceManagementTest", "ConfrenceManagementTest\ConfrenceManagementTest.csproj", "{C24202A3-A589-45FC-B222-8E955B1184FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfrenceManagementLogic", "ConfrenceManagementLogic\ConfrenceManagementLogic.csproj", "{827B044E-4A46-4CFF-B566-649E27897423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C24202A3-A589-45FC-B222-8E955B1184FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C24202A3-A589-45FC-B222-8E955B1184FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C24202A3-A589-45FC-B222-8E955B1184FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827B044E-4A46-4CFF-B566-649E27897423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827B044E-4A46-4CFF-B566-649E27897423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827B044E-4A46-4CFF-B566-649E27897423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827B044E-4A46-4CFF-B566-649E27897423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

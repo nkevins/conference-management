@@ -69,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConfrenceManagementLogic\ConfrenceManagementLogic.csproj">
+      <Project>{827B044E-4A46-4CFF-B566-649E27897423}</Project>
+      <Name>ConfrenceManagementLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConfrenceManagement\ConfrenceManagement.csproj">
       <Project>{ea2e09b5-839e-44bd-b186-2c182a371a92}</Project>
       <Name>ConfrenceManagement</Name>

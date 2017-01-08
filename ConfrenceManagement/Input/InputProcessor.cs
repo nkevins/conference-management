@@ -1,4 +1,4 @@
-﻿using ConfrenceManagement.Model;
+﻿using ConfrenceManagementLogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ConfrenceManagement.Input
+namespace ConfrenceManagementLogic.Input
 {
     public class InputProcessor
     {

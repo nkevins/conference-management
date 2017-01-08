@@ -1,11 +1,11 @@
-﻿using ConfrenceManagement.Helper;
+﻿using ConfrenceManagementLogic.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfrenceManagement.Model
+namespace ConfrenceManagementLogic.Model
 {
     public class Event
     {
