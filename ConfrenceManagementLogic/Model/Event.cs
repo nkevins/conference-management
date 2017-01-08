@@ -49,7 +49,14 @@ namespace ConfrenceManagementLogic.Model
 
         public override string ToString()
         {
-            return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " " + duration + "min";
+            if (eventType != EventType.Talk)
+            {
+                return TimeHelper.FormatMinutesToTime(startTime) + " " + title;
+            }
+            else
+            {
+                return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " " + duration + "min";
+            } 
         }
     }
 }

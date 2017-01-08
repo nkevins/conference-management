@@ -34,6 +34,10 @@ namespace ConfrenceManagementTest.Model
             morningSession.AddTalkEvent(e);
 
             Assert.AreEqual("09:00 AM Python 30min", morningSession.events[0].ToString());
+            Assert.AreEqual("12:00 PM Lunch", morningSession.events[1].ToString());
+
+            Session afternoonSession = new Session(Session.SessionType.Afternoon);
+            Assert.AreEqual("04:00 PM Networking Event", afternoonSession.events[0].ToString());
         }
     }
 }
