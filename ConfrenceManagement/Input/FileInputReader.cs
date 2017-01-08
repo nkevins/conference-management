@@ -1,17 +1,39 @@
-﻿using ConfrenceManagementLogic.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ConfrenceManagementLogic.Model;
+using System.Text.RegularExpressions;
 
 namespace ConfrenceManagement.Input
 {
-    public class InputProcessor
+    public class FileInputReader : IInputReader
     {
-        public List<Event> ParseInput(List<string> input)
+        private IFileHandler fileHandler;
+        private string path;
+
+        public FileInputReader(IFileHandler fileHandler, string path)
         {
+            this.fileHandler = fileHandler;
+            this.path = path;
+        }
+
+        public List<Event> ReadInput()
+        {
+            // Validate input file
+            if (!fileHandler.FileExist(path))
+            {
+                throw new ApplicationException("Invalid file path");
+            }
+
+            List<string> input = fileHandler.ReadFile(path);
+            if (input.Count == 0)
+            {
+                throw new ApplicationException("File content is empty");
+            }
+
+            // Parse input
             List<Event> events = new List<Event>();
 
             foreach (string line in input)
@@ -48,11 +70,11 @@ namespace ConfrenceManagement.Input
                     {
                         throw new ApplicationException(ex.Message + ": " + line, ex);
                     }
-                    
-                }                
+
+                }
             }
 
-            return events;     
+            return events;
         }
     }
 }

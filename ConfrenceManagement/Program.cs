@@ -15,45 +15,39 @@ namespace ConfrenceManagement
             List<Event> events = new List<Event>();
 
             // Read input file
-            InputProcessor inputProcessor = new InputProcessor();
+            IFileHandler fileHandler = new FileHandler();
             bool isFileValid = false;
-            string inputFileLocation = "";
 
             while (!isFileValid)
             {
                 Console.Write("Enter input file path: ");
-                inputFileLocation = Console.ReadLine().Trim();
+                string inputFileLocation = Console.ReadLine().Trim();
 
-                if (inputFileLocation == "" || !File.Exists(inputFileLocation))
-                {
-                    Console.WriteLine("Invalid file location, please try again");
-                    continue;
-                }
-
-                List<string> fileContents = File.ReadAllLines(inputFileLocation).ToList();
-
-                if (fileContents.Count == 0)
-                {
-                    Console.WriteLine("File content is empty");
-                    continue;
-                }
+                IInputReader inputReader = new FileInputReader(fileHandler, inputFileLocation);
 
                 try
                 {
-                    events = inputProcessor.ParseInput(File.ReadAllLines(inputFileLocation).ToList());
+                    events = inputReader.ReadInput();
                     isFileValid = true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    continue;
                 }
             }
-            
 
             // Proccess event assignment
-            ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
-            Confrence confrence = scheduler.ScheduleConfrence();
+            IConfrenceScheduler scheduler = new ConfrenceScheduler(events);
+            Confrence confrence;
+            try
+            {
+                confrence = scheduler.ScheduleConfrence();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
 
             // Print result
             int trackNo = 1;

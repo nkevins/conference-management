@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\InputProcessor.cs" />
+    <Compile Include="Input\FileHandler.cs" />
+    <Compile Include="Input\FileInputReader.cs" />
+    <Compile Include="Input\IFileHandler.cs" />
+    <Compile Include="Input\IInputReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

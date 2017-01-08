@@ -56,5 +56,23 @@ namespace ConfrenceManagementTest
             Event secondTrackLNetworking = result.tracks[1].sessions[1].events.Find(x => x.eventType == Event.EventType.Networking);
             Assert.AreEqual(990, secondTrackLNetworking.startTime);
         }
+
+        [TestMethod]
+        public void TestOverdurationEvent()
+        {
+            List<Event> events = new List<Event>();
+            events.Add(new Event("Event 1", 280));
+            ConfrenceScheduler scheduler = new ConfrenceScheduler(events);
+
+            try
+            {
+                Confrence result = scheduler.ScheduleConfrence();
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains("Duration is greater than available slot"));
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConfrenceManagementLogic.Scheduler
 {
-    public class ConfrenceScheduler
+    public class ConfrenceScheduler : IConfrenceScheduler
     {
         private List<Event> events;
 
@@ -51,7 +51,7 @@ namespace ConfrenceManagementLogic.Scheduler
                 Track t = new Track();
                 if (!AddEventToTrack(e, ref t))
                 {
-                    Console.WriteLine("Unable to assign slot for following session: " + e.title + " " + e.duration + "min");
+                    throw new ApplicationException("Unable to assign slot for following session: " + e.title + " " + e.duration + "min. Duration is greater than available slot.");
                 }
                 else
                 {
