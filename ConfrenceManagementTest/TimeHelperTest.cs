@@ -48,5 +48,25 @@ namespace ConfrenceManagementTest
             Assert.AreEqual("07:30 AM", TimeHelper.FormatMinutesToTime(450));
             Assert.AreEqual("07:30 PM", TimeHelper.FormatMinutesToTime(1170));
         }
+
+        [TestMethod]
+        public void TestConvertDurationToMinutes()
+        {
+            Assert.AreEqual(5, TimeHelper.ConvertDurationToMinutes("lightning"));
+            Assert.AreEqual(30, TimeHelper.ConvertDurationToMinutes("30min"));
+
+            try
+            {
+                int result = TimeHelper.ConvertDurationToMinutes("30 min");
+                Assert.Fail();
+            } catch (Exception) { }
+        }
+
+        [TestMethod]
+        public void TestConvertMinutesToDuration()
+        {
+            Assert.AreEqual("lightning", TimeHelper.ConvertMinutesToDuration(5));
+            Assert.AreEqual("60min", TimeHelper.ConvertMinutesToDuration(60));
+        }
     }
 }

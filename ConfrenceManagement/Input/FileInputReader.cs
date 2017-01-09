@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConfrenceManagementLogic.Model;
-using System.Text.RegularExpressions;
+using ConfrenceManagementLogic.Helper;
 
 namespace ConfrenceManagement.Input
 {
@@ -41,36 +41,33 @@ namespace ConfrenceManagement.Input
                 string title = "";
                 int duration = 0;
 
-                if (line.EndsWith(" lightning"))
+                if (line.Trim() == "")
                 {
-                    title = line.Substring(0, line.Length - 10);
-                    duration = 5;
+                    continue;
+                }
 
+                List<string> words = line.Split().ToList();
+
+                try
+                {
+                    duration = TimeHelper.ConvertDurationToMinutes(words.Last().Trim());
+                }
+                catch (Exception ex)
+                {
+                    throw new ApplicationException(ex.Message + ": " + line);
+                }
+
+
+                words.RemoveAt(words.Count - 1);
+                title = words.Aggregate((i, j) => i + " " + j);
+
+                try
+                {
                     events.Add(new Event(title, duration));
                 }
-                else
+                catch (Exception ex)
                 {
-                    string pattern = @"^([^0-9]+)(\d+)min";
-                    Regex r = new Regex(pattern);
-                    Match m = r.Match(line);
-
-                    if (!m.Success)
-                    {
-                        throw new ApplicationException("Invalid input format: " + line);
-                    }
-
-                    title = m.Groups[1].Value.Trim();
-                    duration = int.Parse(m.Groups[2].Value.Trim());
-
-                    try
-                    {
-                        events.Add(new Event(title, duration));
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ApplicationException(ex.Message + ": " + line, ex);
-                    }
-
+                    throw new ApplicationException(ex.Message + ": " + line, ex);
                 }
             }
 

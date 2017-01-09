@@ -43,7 +43,7 @@ namespace ConfrenceManagementLogic.Model
             }
             else
             {
-                return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " " + duration + "min";
+                return TimeHelper.FormatMinutesToTime(startTime) + " " + title + " " + TimeHelper.ConvertMinutesToDuration(duration);
             } 
         }
     }

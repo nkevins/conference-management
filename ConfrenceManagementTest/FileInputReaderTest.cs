@@ -106,9 +106,11 @@ namespace ConfrenceManagementTest
             try
             {
                 output = fileInputReader.ReadInput();
+            }
+            catch (Exception)
+            {
                 Assert.Fail();
             }
-            catch (Exception) { }
             Assert.AreEqual(0, output.Count);
 
             Reset();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ConfrenceManagementLogic.Helper
@@ -32,6 +33,39 @@ namespace ConfrenceManagementLogic.Helper
             }            
 
             return hourPart.ToString("D2") + ":" + minutePart.ToString("D2") + " " + suffix;
+        }
+
+        public static int ConvertDurationToMinutes(string duration)
+        {
+            if (duration == "lightning")
+            {
+                return 5;
+            }
+            else
+            {
+                string pattern = @"(\d+)min";
+                Regex r = new Regex(pattern);
+                Match m = r.Match(duration);
+
+                if (!m.Success)
+                {
+                    throw new ApplicationException("Invalid input format");
+                }
+
+                return int.Parse(m.Groups[1].Value.Trim());
+            }
+        }
+
+        public static string ConvertMinutesToDuration(int minutes)
+        {
+            if (minutes == 5)
+            {
+                return "lightning";
+            }
+            else
+            {
+                return minutes.ToString() + "min";
+            }
         }
     }
 }
