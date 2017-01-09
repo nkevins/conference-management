@@ -30,13 +30,13 @@ namespace ConfrenceManagementTest.Model
         public void TestToString()
         {
             Event e = new Event("Python", 30, Event.EventType.Talk, 540);
-            Assert.AreEqual("09:00 AM Python 30min", e.ToString());
+            Assert.AreEqual("09:00AM Python 30min", e.ToString());
 
             e = new Event("Lunch", 30, Event.EventType.Lunch, 720);
-            Assert.AreEqual("12:00 PM Lunch", e.ToString());
+            Assert.AreEqual("12:00PM Lunch", e.ToString());
 
             e = new Event("Networking Event", 30, Event.EventType.Networking, 960);
-            Assert.AreEqual("04:00 PM Networking Event", e.ToString());
+            Assert.AreEqual("04:00PM Networking Event", e.ToString());
         }
     }
 }

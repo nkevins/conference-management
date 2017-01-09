@@ -10,8 +10,8 @@ namespace ConfrenceManagementTest
         [TestMethod]
         public void TestBoundaryValue()
         {
-            Assert.AreEqual("00:00 AM", TimeHelper.FormatMinutesToTime(0));
-            Assert.AreEqual("11:59 PM", TimeHelper.FormatMinutesToTime(1439));
+            Assert.AreEqual("00:00AM", TimeHelper.FormatMinutesToTime(0));
+            Assert.AreEqual("11:59PM", TimeHelper.FormatMinutesToTime(1439));
 
             try
             {
@@ -37,16 +37,16 @@ namespace ConfrenceManagementTest
         [TestMethod]
         public void TestAMPMTransition()
         {
-            Assert.AreEqual("11:59 AM", TimeHelper.FormatMinutesToTime(719));
-            Assert.AreEqual("12:00 PM", TimeHelper.FormatMinutesToTime(720));
-            Assert.AreEqual("12:01 PM", TimeHelper.FormatMinutesToTime(721));
+            Assert.AreEqual("11:59AM", TimeHelper.FormatMinutesToTime(719));
+            Assert.AreEqual("12:00PM", TimeHelper.FormatMinutesToTime(720));
+            Assert.AreEqual("12:01PM", TimeHelper.FormatMinutesToTime(721));
         }
 
         [TestMethod]
         public void TestValidValue()
         {
-            Assert.AreEqual("07:30 AM", TimeHelper.FormatMinutesToTime(450));
-            Assert.AreEqual("07:30 PM", TimeHelper.FormatMinutesToTime(1170));
+            Assert.AreEqual("07:30AM", TimeHelper.FormatMinutesToTime(450));
+            Assert.AreEqual("07:30PM", TimeHelper.FormatMinutesToTime(1170));
         }
 
         [TestMethod]

@@ -32,7 +32,7 @@ namespace ConfrenceManagementLogic.Helper
                 suffix = "AM";
             }            
 
-            return hourPart.ToString("D2") + ":" + minutePart.ToString("D2") + " " + suffix;
+            return hourPart.ToString("D2") + ":" + minutePart.ToString("D2") + suffix;
         }
 
         public static int ConvertDurationToMinutes(string duration)
