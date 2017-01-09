@@ -56,7 +56,7 @@ namespace ConfrenceManagement
                 Console.WriteLine("Track " + trackNo + ":");
                 foreach (Session session in track.sessions.OrderBy(x => x.sessionType))
                 {
-                    foreach (Event e in session.events)
+                    foreach (Event e in session.GetEvents())
                     {
                         Console.WriteLine(e.ToString());
                     }

@@ -12,9 +12,8 @@ namespace ConfrenceManagementTest.Model
         {
             Confrence c = new Confrence();
 
-            // Initially 1 track will be created
             Assert.IsNotNull(c.tracks);
-            Assert.AreEqual(1, c.tracks.Count);
+            Assert.AreEqual(0, c.tracks.Count);
         }
     }
 }

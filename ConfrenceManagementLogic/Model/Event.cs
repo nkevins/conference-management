@@ -32,19 +32,7 @@ namespace ConfrenceManagementLogic.Model
 
             this.duration = duration;
             this.eventType = eventType;
-            
-            if (eventType == EventType.Lunch)
-            {
-                this.startTime = 720;
-            }
-            else if (eventType == EventType.Networking && startTime == 0)
-            {
-                this.startTime = 960;
-            }
-            else
-            {
-                this.startTime = startTime;
-            }
+            this.startTime = startTime;
         }
 
         public override string ToString()

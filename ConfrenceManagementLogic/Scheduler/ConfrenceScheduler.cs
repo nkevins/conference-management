@@ -9,28 +9,66 @@ namespace ConfrenceManagementLogic.Scheduler
 {
     public class ConfrenceScheduler : IConfrenceScheduler
     {
-        private List<Event> events;
+        private List<Event> eventsInput;
+        private Confrence confrence;
 
         public ConfrenceScheduler(List<Event> events)
         {
-            this.events = events;
+            this.eventsInput = events;
         }
 
         public Confrence ScheduleConfrence()
         {
-            Confrence confrence = new Confrence();
+            confrence = new Confrence();
 
-            events = events.OrderByDescending(x => x.duration).ToList();
-
-            foreach (Event e in events)
+            // Use First Fit Decreasing Algorithm to assign event
+            eventsInput = eventsInput.OrderByDescending(x => x.duration).ToList();
+            foreach (Event e in eventsInput)
             {
-                AddEventToConfrence(e, ref confrence);
+                AddEventToConfrence(e);
+            }
+
+            // Add lunch and networking event
+            foreach (Track t in confrence.tracks)
+            {
+                foreach (Session s in t.sessions)
+                {
+                    if (s.sessionType == Session.SessionType.Morning)
+                    {
+                        s.AddNonTalkEvent(new Event("Lunch", 0, Event.EventType.Lunch, 720));
+                    }
+                    else if (s.sessionType == Session.SessionType.Afternoon)
+                    {
+                        // Networking event must only start later than 4 PM
+                        int networkingStartTime;
+                        if (s.availableSlotMinutes < 60)
+                        {
+                            networkingStartTime = s.endTime - s.availableSlotMinutes;
+                        } else
+                        {
+                            networkingStartTime = 960;
+                        }
+
+                        s.AddNonTalkEvent(new Event("Networking Event", 0, Event.EventType.Networking, networkingStartTime));
+                    }
+                }
             }
 
             return confrence;
         }
 
-        private void AddEventToConfrence(Event e, ref Confrence confrence)
+        private Track GenerateTrack()
+        {
+            Track track = new Track();
+
+            // Initialize morning and afternoon session by default
+            track.sessions.Add(new Session(Session.SessionType.Morning, 540, 720));
+            track.sessions.Add(new Session(Session.SessionType.Afternoon, 780, 1020));
+
+            return track;
+        }
+
+        private void AddEventToConfrence(Event e)
         {
             bool canAssignIntoExistingTracks = false;
 
@@ -48,7 +86,7 @@ namespace ConfrenceManagementLogic.Scheduler
             // If cannot assign in existing tracks, create new track and assign event into it
             if (!canAssignIntoExistingTracks)
             {
-                Track t = new Track();
+                Track t = GenerateTrack();
                 if (!AddEventToTrack(e, ref t))
                 {
                     throw new ApplicationException("Unable to assign slot for following session: " + e.title + " " + e.duration + "min. Duration is greater than available slot.");
@@ -71,6 +109,7 @@ namespace ConfrenceManagementLogic.Scheduler
 
                 if (s.availableSlotMinutes >= e.duration)
                 {
+                    // Ensure lunch and networking session at the last
                     s.AddTalkEvent(e);
                     canAssignIntoExistingSession = true;
                     break;

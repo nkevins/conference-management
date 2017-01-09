@@ -14,36 +14,24 @@ namespace ConfrenceManagementLogic.Model
             Afternoon = 2
         }
 
-        public List<Event> events { get; }
+        private List<Event> events;
         public int startTime { get; }
         public int endTime { get; }
         public SessionType sessionType { get; }
         public int availableSlotMinutes { private set; get; }
         
-        public Session(SessionType sessionType)
+        public Session(SessionType sessionType, int startTime, int endTime)
         {
             events = new List<Event>();
-
-            if (sessionType == SessionType.Morning)
-            {
-                startTime = 540;
-                endTime = 720;
-                this.sessionType = SessionType.Morning;
-
-                Event lunch = new Event("Lunch", 0, Event.EventType.Lunch);
-                events.Add(lunch);
-            }
-            else
-            {
-                startTime = 780;
-                endTime = 1020;
-                this.sessionType = SessionType.Afternoon;
-
-                Event networking = new Event("Networking Event", 0, Event.EventType.Networking);
-                events.Add(networking);
-            }
-
+            this.sessionType = sessionType;
+            this.startTime = startTime;
+            this.endTime = endTime;
             availableSlotMinutes = endTime - startTime;
+        }
+
+        public List<Event> GetEvents()
+        {
+            return events;
         }
 
         public void AddTalkEvent(Event e)
@@ -60,17 +48,19 @@ namespace ConfrenceManagementLogic.Model
 
             int eventStartTime = endTime - availableSlotMinutes;
             Event eventToBeInserted = new Event(e.title, e.duration, Event.EventType.Talk, eventStartTime);
-            events.Insert(events.Count - 1, eventToBeInserted);
+            events.Add(eventToBeInserted);
             availableSlotMinutes -= e.duration;
+        }
 
-            // Shift Networking time for afternoon session if talk session end after 4 PM
-            if (sessionType == SessionType.Afternoon && availableSlotMinutes < 60)
+        public void AddNonTalkEvent(Event e)
+        {
+            if (e.eventType == Event.EventType.Talk)
             {
-                Event networkingEvent = events.Find(x => x.eventType == Event.EventType.Networking);
-                Event newNetworkingEvent = new Event(networkingEvent.title, networkingEvent.duration, Event.EventType.Networking, endTime - availableSlotMinutes);
-                events.Remove(networkingEvent);
-                events.Add(newNetworkingEvent);
+                throw new ApplicationException("Only Event Type other than Talk is allowed to be added");
             }
+
+            Event eventToBeInserted = new Event(e.title, e.duration, e.eventType, e.startTime);
+            events.Add(eventToBeInserted);
         }
     }
 }

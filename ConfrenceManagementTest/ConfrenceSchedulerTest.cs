@@ -22,10 +22,10 @@ namespace ConfrenceManagementTest
             Assert.AreEqual(1, result.tracks.Count);
             Assert.AreEqual(2, result.tracks[0].sessions.Count);
 
-            Event lunch = result.tracks[0].sessions[0].events.Find(x => x.eventType == Event.EventType.Lunch);
+            Event lunch = result.tracks[0].sessions[0].GetEvents().Find(x => x.eventType == Event.EventType.Lunch);
             Assert.AreEqual(720, lunch.startTime);
 
-            Event networking = result.tracks[0].sessions[1].events.Find(x => x.eventType == Event.EventType.Networking);
+            Event networking = result.tracks[0].sessions[1].GetEvents().Find(x => x.eventType == Event.EventType.Networking);
             Assert.AreEqual(960, networking.startTime);
         }
 
@@ -44,16 +44,16 @@ namespace ConfrenceManagementTest
             Assert.AreEqual(2, result.tracks[0].sessions.Count);
             Assert.AreEqual(2, result.tracks[1].sessions.Count);
 
-            Event firstTrackLunch = result.tracks[0].sessions[0].events.Find(x => x.eventType == Event.EventType.Lunch);
+            Event firstTrackLunch = result.tracks[0].sessions[0].GetEvents().Find(x => x.eventType == Event.EventType.Lunch);
             Assert.AreEqual(720, firstTrackLunch.startTime);
 
-            Event firstTrackLNetworking = result.tracks[0].sessions[1].events.Find(x => x.eventType == Event.EventType.Networking);
+            Event firstTrackLNetworking = result.tracks[0].sessions[1].GetEvents().Find(x => x.eventType == Event.EventType.Networking);
             Assert.AreEqual(1020, firstTrackLNetworking.startTime);
 
-            Event secondTrackLunch = result.tracks[1].sessions[0].events.Find(x => x.eventType == Event.EventType.Lunch);
+            Event secondTrackLunch = result.tracks[1].sessions[0].GetEvents().Find(x => x.eventType == Event.EventType.Lunch);
             Assert.AreEqual(720, secondTrackLunch.startTime);
 
-            Event secondTrackLNetworking = result.tracks[1].sessions[1].events.Find(x => x.eventType == Event.EventType.Networking);
+            Event secondTrackLNetworking = result.tracks[1].sessions[1].GetEvents().Find(x => x.eventType == Event.EventType.Networking);
             Assert.AreEqual(990, secondTrackLNetworking.startTime);
         }
 

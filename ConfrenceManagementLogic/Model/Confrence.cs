@@ -13,8 +13,6 @@ namespace ConfrenceManagementLogic.Model
         public Confrence()
         {
             tracks = new List<Track>();
-            Track track = new Track();
-            tracks.Add(track);
         }
     }
 }

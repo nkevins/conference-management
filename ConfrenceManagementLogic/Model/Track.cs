@@ -13,12 +13,6 @@ namespace ConfrenceManagementLogic.Model
         public Track()
         {
             sessions = new List<Session>();
-
-            // Initialize morning and afternoon session by default
-            Session morningSession = new Session(Session.SessionType.Morning);
-            sessions.Add(morningSession);
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
-            sessions.Add(afternoonSession);
         }
     }
 }

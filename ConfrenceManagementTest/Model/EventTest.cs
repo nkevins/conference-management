@@ -29,15 +29,14 @@ namespace ConfrenceManagementTest.Model
         [TestMethod]
         public void TestToString()
         {
-            Session morningSession = new Session(Session.SessionType.Morning);
-            Event e = new Event("Python", 30);
-            morningSession.AddTalkEvent(e);
+            Event e = new Event("Python", 30, Event.EventType.Talk, 540);
+            Assert.AreEqual("09:00 AM Python 30min", e.ToString());
 
-            Assert.AreEqual("09:00 AM Python 30min", morningSession.events[0].ToString());
-            Assert.AreEqual("12:00 PM Lunch", morningSession.events[1].ToString());
+            e = new Event("Lunch", 30, Event.EventType.Lunch, 720);
+            Assert.AreEqual("12:00 PM Lunch", e.ToString());
 
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
-            Assert.AreEqual("04:00 PM Networking Event", afternoonSession.events[0].ToString());
+            e = new Event("Networking Event", 30, Event.EventType.Networking, 960);
+            Assert.AreEqual("04:00 PM Networking Event", e.ToString());
         }
     }
 }

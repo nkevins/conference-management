@@ -7,45 +7,39 @@ namespace ConfrenceManagementTest.Model
     [TestClass]
     public class SessionTest
     {
-        [TestMethod]
-        public void TestConstructor()
+        private Session morningSession;
+        private Session afternoonSession;
+
+        [TestInitialize()]
+        public void Initialize()
         {
-            Session morningSession = new Session(Session.SessionType.Morning);
-            Assert.AreEqual(180, morningSession.availableSlotMinutes);
-            Assert.AreEqual(540, morningSession.startTime);
-            Assert.AreEqual(720, morningSession.endTime);
-            Assert.IsNotNull(morningSession.events);
-            Assert.AreEqual(1, morningSession.events.Count);
-            Assert.AreEqual(1, morningSession
-                .events.FindAll(x => x.eventType == Event.EventType.Lunch).Count);
-            Event lunch = morningSession
-                .events.Find(x => x.eventType == Event.EventType.Lunch);
-            Assert.AreEqual("Lunch", lunch.title);
-            Assert.AreEqual(Event.EventType.Lunch, lunch.eventType);
-            Assert.AreEqual(720, lunch.startTime);
-
-
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
-            Assert.AreEqual(240, afternoonSession.availableSlotMinutes);
-            Assert.AreEqual(780, afternoonSession.startTime);
-            Assert.AreEqual(1020, afternoonSession.endTime);
-            Assert.IsNotNull(afternoonSession.events);
-            Assert.AreEqual(1, afternoonSession.events.Count);
-            Assert.AreEqual(1, afternoonSession
-                .events.FindAll(x => x.eventType == Event.EventType.Networking).Count);
-            Event networking = afternoonSession
-                .events.Find(x => x.eventType == Event.EventType.Networking);
-            Assert.AreEqual("Networking Event", networking.title);
-            Assert.AreEqual(Event.EventType.Networking, networking.eventType);
-            Assert.AreEqual(960, networking.startTime);
+            morningSession = new Session(Session.SessionType.Morning, 540, 720);
+            afternoonSession = new Session(Session.SessionType.Afternoon, 780, 1020);
         }
 
         [TestMethod]
-        public void TestAddInvalidEventType()
+        public void TestConstructor()
         {
-            Session morningSession = new Session(Session.SessionType.Morning);
+            Assert.AreEqual(Session.SessionType.Morning, morningSession.sessionType);
+            Assert.AreEqual(180, morningSession.availableSlotMinutes);
+            Assert.AreEqual(540, morningSession.startTime);
+            Assert.AreEqual(720, morningSession.endTime);
+            Assert.IsNotNull(morningSession.GetEvents());
+            Assert.AreEqual(0, morningSession.GetEvents().Count);
+
+            Assert.AreEqual(Session.SessionType.Afternoon, afternoonSession.sessionType);
+            Assert.AreEqual(240, afternoonSession.availableSlotMinutes);
+            Assert.AreEqual(780, afternoonSession.startTime);
+            Assert.AreEqual(1020, afternoonSession.endTime);
+            Assert.IsNotNull(afternoonSession.GetEvents());
+            Assert.AreEqual(0, afternoonSession.GetEvents().Count);
+        }
+
+        [TestMethod]
+        public void TestAddInvalidTalkEventType()
+        {
             Event lunch = new Event("Lunch", 0, Event.EventType.Lunch);
-            Event networking = new Event("Lunch", 0, Event.EventType.Networking); ;
+            Event networking = new Event("Networking Event", 0, Event.EventType.Networking); ;
 
             try
             {
@@ -55,20 +49,18 @@ namespace ConfrenceManagementTest.Model
 
             try
             {
-                morningSession.AddTalkEvent(networking);
+                afternoonSession.AddTalkEvent(networking);
                 Assert.Fail();
             }
             catch (Exception) { }
         }
 
         [TestMethod]
-        public void TestAddValidEventToMorningSession()
+        public void TestAddValidTalkEvent()
         {
-            Session morningSession = new Session(Session.SessionType.Morning);
+            Event e = new Event("Python", 60);
 
-            Assert.AreEqual(1, morningSession.events.Count);
-
-            Event e = new Event("Java", 180);
+            Assert.AreEqual(0, morningSession.GetEvents().Count);
 
             try
             {
@@ -76,26 +68,9 @@ namespace ConfrenceManagementTest.Model
             }
             catch (Exception) { Assert.Fail(); }
 
-            Assert.AreEqual(2, morningSession.events.Count);
-            Assert.AreEqual(0, morningSession.availableSlotMinutes);
-            Assert.AreEqual(540, morningSession.events[0].startTime);
-
-
-            morningSession = new Session(Session.SessionType.Morning);
-
-            Assert.AreEqual(1, morningSession.events.Count);
-
-            e = new Event("Python", 60);
-
-            try
-            {
-                morningSession.AddTalkEvent(e);
-            }
-            catch (Exception) { Assert.Fail(); }
-
-            Assert.AreEqual(2, morningSession.events.Count);
+            Assert.AreEqual(1, morningSession.GetEvents().Count);
             Assert.AreEqual(120, morningSession.availableSlotMinutes);
-            Assert.AreEqual(540, morningSession.events[0].startTime);
+            Assert.AreEqual(540, morningSession.GetEvents()[0].startTime);
 
             Event e2 = new Event(".NET", 30);
 
@@ -105,64 +80,52 @@ namespace ConfrenceManagementTest.Model
             }
             catch (Exception) { Assert.Fail(); }
 
-            Assert.AreEqual(3, morningSession.events.Count);
+            Assert.AreEqual(2, morningSession.GetEvents().Count);
             Assert.AreEqual(90, morningSession.availableSlotMinutes);
-            Assert.AreEqual(600, morningSession.events[1].startTime);
+            Assert.AreEqual(600, morningSession.GetEvents()[1].startTime);
         }
 
         [TestMethod]
-        public void TestAddValidEventToAfternoonSession()
+        public void TestAddInvalidNonTalkEventType()
         {
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
-
-            Assert.AreEqual(1, afternoonSession.events.Count);
-
-            Event e = new Event("Java", 240);
+            Event e = new Event("Python", 60);
 
             try
             {
-                afternoonSession.AddTalkEvent(e);
+                morningSession.AddNonTalkEvent(e);
+                Assert.Fail();
             }
-            catch (Exception) { Assert.Fail(); }
-
-            Assert.AreEqual(2, afternoonSession.events.Count);
-            Assert.AreEqual(0, afternoonSession.availableSlotMinutes);
-            Assert.AreEqual(780, afternoonSession.startTime);
-
-
-            afternoonSession = new Session(Session.SessionType.Afternoon);
-
-            Assert.AreEqual(1, afternoonSession.events.Count);
-
-            e = new Event("Python", 60);
+            catch (Exception) { }
 
             try
             {
-                afternoonSession.AddTalkEvent(e);
+                afternoonSession.AddNonTalkEvent(e);
+                Assert.Fail();
             }
-            catch (Exception) { Assert.Fail(); }
+            catch (Exception) { }
+        }
 
-            Assert.AreEqual(2, afternoonSession.events.Count);
-            Assert.AreEqual(180, afternoonSession.availableSlotMinutes);
-            Assert.AreEqual(780, afternoonSession.startTime);
+        [TestMethod]
+        public void TestAddValidNonTalkEventType()
+        {
+            Event networking = new Event("Networking Event", 0, Event.EventType.Networking, 990);
 
-            Event e2 = new Event(".NET", 30);
+            Assert.AreEqual(0, afternoonSession.GetEvents().Count);
 
             try
             {
-                afternoonSession.AddTalkEvent(e2);
+                afternoonSession.AddNonTalkEvent(networking);
             }
             catch (Exception) { Assert.Fail(); }
 
-            Assert.AreEqual(3, afternoonSession.events.Count);
-            Assert.AreEqual(150, afternoonSession.availableSlotMinutes);
-            Assert.AreEqual(840, afternoonSession.events[1].startTime);
+            Assert.AreEqual(1, afternoonSession.GetEvents().Count);
+            Assert.AreEqual(240, afternoonSession.availableSlotMinutes);
+            Assert.AreEqual(990, afternoonSession.GetEvents()[0].startTime);
         }
 
         [TestMethod]
         public void TestAddOverDurationEvent()
         {
-            Session morningSession = new Session(Session.SessionType.Morning);
             Event e = new Event("Java", 185);
 
             try
@@ -173,7 +136,6 @@ namespace ConfrenceManagementTest.Model
             catch (Exception) { }
 
 
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
             e = new Event("Java", 245);
 
             try
@@ -182,39 +144,6 @@ namespace ConfrenceManagementTest.Model
                 Assert.Fail();
             }
             catch (Exception) { }
-        }
-
-        [TestMethod]
-        public void TestNetworkingSessionTimeShift()
-        {
-            Session afternoonSession = new Session(Session.SessionType.Afternoon);
-            Assert.AreEqual(1, afternoonSession.events.Count);
-            Event e = new Event("Java", 185);
-
-            try
-            {
-                afternoonSession.AddTalkEvent(e);
-            }
-            catch (Exception) { Assert.Fail(); }
-
-            Assert.AreEqual(2, afternoonSession.events.Count);
-            Assert.AreEqual(55, afternoonSession.availableSlotMinutes);
-
-            Event networkingEvent = afternoonSession.events.Find(x => x.eventType == Event.EventType.Networking);
-            Assert.AreEqual(965, networkingEvent.startTime);
-
-            Event e2 = new Event("Ruby on Rails", 30);
-            try
-            {
-                afternoonSession.AddTalkEvent(e2);
-            }
-            catch (Exception) { Assert.Fail(); }
-
-            Assert.AreEqual(3, afternoonSession.events.Count);
-            Assert.AreEqual(25, afternoonSession.availableSlotMinutes);
-
-            networkingEvent = afternoonSession.events.Find(x => x.eventType == Event.EventType.Networking);
-            Assert.AreEqual(995, networkingEvent.startTime);
         }
     }
 }
